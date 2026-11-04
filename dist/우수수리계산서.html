@@ -189,6 +189,7 @@ h3{font-size:14px;margin:18px 0 8px}h3:first-child{margin-top:0}
 .dxbox h4{margin:0 0 6px;font-size:13.5px}.dxbox table.dxt{table-layout:auto;max-width:none}.dxbox table.dxlay{width:100%;margin:8px 0}.dxbox table.dxt td:first-child{white-space:nowrap}.dxbox table.dxlay td{text-align:left;font-size:12px;white-space:normal}.dxbox table.dxlay td:first-child{font-family:var(--f-num);white-space:nowrap}
 .dxbox .toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.dxbox select{width:auto}
 .t1fix{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin:10px 0;padding:8px 12px;border:1px solid var(--line,#d9dee3);border-radius:8px}.t1fix .chk{font-weight:600;color:var(--ink)}.t1fix .note{flex:1 1 260px;margin:0}
+.savebtn{border-color:var(--accent);color:var(--accent);font-weight:600;margin-right:10px}.savebtn[aria-pressed="true"]{background:var(--accent);color:#fff}
 </style>
 
 <div class="wrap">
@@ -198,6 +199,7 @@ h3{font-size:14px;margin:18px 0 8px}h3:first-child{margin-top:0}
     <p>유역·관로 제원을 넣으면 강우강도, 유입시간, 합리식 계획우수량, Manning 관로 검토와 종단면도·단면도, 수리계산서가 함께 바뀝니다. 계산은 KDS 61(하수도설계기준 2025)과 도로 배수시설 설계 및 관리지침(2025)을 따릅니다.</p>
   </div>
   <div class="dl">
+    <button class="btn savebtn" id="btnSave" type="button" aria-pressed="false" title="구글 드라이브·계정 저장소에 작업 저장, 불러오기">저장 · 불러오기</button>
     <button class="btn" id="btnDxf" type="button">CAD 도면 받기 (.zip)</button>
     <button class="btn" id="btnDocx" type="button">수리계산서 받기 (.docx)</button>
     <button class="btn" id="btnHwpx" type="button">수리계산서 받기 (.hwpx)</button>
@@ -226,7 +228,7 @@ h3{font-size:14px;margin:18px 0 8px}h3:first-child{margin-top:0}
 <main>
   <section class="work">
     <div class="tabs" role="tablist" aria-label="작업 화면">
-      <div class="trow"><span class="tgrp">조건</span><button class="tab" role="tab" data-t="proj" aria-selected="true">공사 정보</button><button class="tab" role="tab" data-t="cond" aria-selected="false">설계조건</button><button class="tab" role="tab" data-t="rain_in" aria-selected="false">강우강도식</button><button class="tab" role="tab" data-t="inflow" aria-selected="false">유입시간</button><button class="tab" role="tab" data-t="basin" aria-selected="false">유역도</button><button class="tab" role="tab" data-t="save" aria-selected="false">저장 · 불러오기</button></div>
+      <div class="trow"><span class="tgrp">조건</span><button class="tab" role="tab" data-t="proj" aria-selected="true">공사 정보</button><button class="tab" role="tab" data-t="cond" aria-selected="false">설계조건</button><button class="tab" role="tab" data-t="rain_in" aria-selected="false">강우강도식</button><button class="tab" role="tab" data-t="inflow" aria-selected="false">유입시간</button><button class="tab" role="tab" data-t="basin" aria-selected="false">유역도</button></div>
       <div class="trow"><span class="tgrp">입력</span><button class="tab" role="tab" data-t="pipe" aria-selected="false">관로 입력</button><button class="tab" role="tab" data-t="area" aria-selected="false">유역면적 입력</button><button class="tab" role="tab" data-t="mh" aria-selected="false">맨홀</button></div>
       <div class="trow"><span class="tgrp">결과</span>
       <button class="tab" role="tab" data-t="flow" aria-selected="false">유출량 계산</button>
@@ -1181,8 +1183,9 @@ $("imgDel").addEventListener("click",()=>{LN().img=null;persist();renderBasin();
 /* ---------- 탭 ---------- */
 let TAB="pipe";
 try{const t=localStorage.getItem(KEY+"-tab");if(t)TAB=t;}catch(e){}
-function showTab(t){TAB=t;document.querySelectorAll(".tab").forEach(b=>b.setAttribute("aria-selected",b.dataset.t===t));document.querySelectorAll(".pane").forEach(p=>p.hidden=p.dataset.p!==t);try{localStorage.setItem(KEY+"-tab",t);}catch(e){}renderActive();}
+function showTab(t){TAB=t;{const sb=$("btnSave");if(sb)sb.setAttribute("aria-pressed",t==="save");}document.querySelectorAll(".tab").forEach(b=>b.setAttribute("aria-selected",b.dataset.t===t));document.querySelectorAll(".pane").forEach(p=>p.hidden=p.dataset.p!==t);try{localStorage.setItem(KEY+"-tab",t);}catch(e){}renderActive();}
 document.querySelector(".tabs").addEventListener("click",e=>{const b=e.target.closest(".tab");if(b)showTab(b.dataset.t);});
+$("btnSave").addEventListener("click",()=>{showTab("save");const p=document.querySelector('.pane[data-p="save"]');if(p)p.scrollIntoView({behavior:"smooth",block:"start"});}); /* 저장·불러오기: 위 버튼 줄에서 */
 
 /* ---------- 갱신 ---------- */
 function noteBreaks(){ // 표·입력 아래 작은 설명 글씨: 문장마다 줄을 바꿈 (수리계산서 제외)

@@ -494,8 +494,9 @@ $("imgDel").addEventListener("click",()=>{LN().img=null;persist();renderBasin();
 /* ---------- 탭 ---------- */
 let TAB="pipe";
 try{const t=localStorage.getItem(KEY+"-tab");if(t)TAB=t;}catch(e){}
-function showTab(t){TAB=t;document.querySelectorAll(".tab").forEach(b=>b.setAttribute("aria-selected",b.dataset.t===t));document.querySelectorAll(".pane").forEach(p=>p.hidden=p.dataset.p!==t);try{localStorage.setItem(KEY+"-tab",t);}catch(e){}renderActive();}
+function showTab(t){TAB=t;{const sb=$("btnSave");if(sb)sb.setAttribute("aria-pressed",t==="save");}document.querySelectorAll(".tab").forEach(b=>b.setAttribute("aria-selected",b.dataset.t===t));document.querySelectorAll(".pane").forEach(p=>p.hidden=p.dataset.p!==t);try{localStorage.setItem(KEY+"-tab",t);}catch(e){}renderActive();}
 document.querySelector(".tabs").addEventListener("click",e=>{const b=e.target.closest(".tab");if(b)showTab(b.dataset.t);});
+$("btnSave").addEventListener("click",()=>{showTab("save");const p=document.querySelector('.pane[data-p="save"]');if(p)p.scrollIntoView({behavior:"smooth",block:"start"});}); /* 저장·불러오기: 위 버튼 줄에서 */
 
 /* ---------- 갱신 ---------- */
 function noteBreaks(){ // 표·입력 아래 작은 설명 글씨: 문장마다 줄을 바꿈 (수리계산서 제외)
