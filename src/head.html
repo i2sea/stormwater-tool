@@ -336,6 +336,12 @@ h3{font-size:14px;margin:18px 0 8px}h3:first-child{margin-top:0}
     </form>
     <div class="pane inpane" data-p="save" hidden>
   <details class="saved" open>
+    <summary>구글 드라이브</summary>
+    <p class="note" style="margin:6px 0 0">연결된 구글 드라이브의 <b id="gdWhere">내 드라이브 › - GitHub 작업 - › 우수 수리계산</b> 폴더에 작업 파일(.storm.json)로 저장합니다. 사무실·집 어디서나 같은 목록이 보이고, 덮어쓰면 이전 파일은 드라이브 휴지통으로 갑니다. 처음 쓸 때 구글 드라이브 사용 허용 창이 뜨면 "허용"을 눌러 주세요.</p>
+    <div class="sv-new"><input id="gdName" type="text" placeholder="작업 이름 (비우면 공사명 + 날짜)" aria-label="드라이브 저장 이름"><button class="btn primary small" id="gdSave" type="button">구글 드라이브에 저장</button><button class="btn small" id="gdRefresh" type="button">목록 보기</button></div>
+    <div id="gdList"><p class="note">"목록 보기"를 누르면 드라이브 폴더의 저장본이 나옵니다.</p></div>
+  </details>
+  <details class="saved" open>
     <summary>작업 저장 · 불러오기</summary>
     <p class="note" style="margin:6px 0 0">입력은 이 브라우저에 자동 저장됩니다. 이름을 붙여 계정 저장소에 보관하면 다른 컴퓨터에서도 불러올 수 있습니다(나만 보임).</p>
     <div class="sv-new"><input id="svName" type="text" placeholder="작업 이름 (예: 일광 우수 1-1 50년)" aria-label="작업 이름"><button class="btn primary small" id="svBtn" type="button" disabled>저장</button></div>

@@ -502,7 +502,7 @@ function noteBreaks(){ // 표·입력 아래 작은 설명 글씨: 문장마다 
   document.querySelectorAll('.pane:not([data-p="rep"]) .note,.pane:not([data-p="rep"]) .calcline').forEach(p=>{if(p.querySelector("input,select,textarea,button,table"))return;
     const h=p.innerHTML,n=h.replace(/([.)])\s+(?=[^\s<])/g,(m,c)=>c===")"?m:".<br>");if(n!==h)p.innerHTML=n;});}
 new MutationObserver(()=>{clearTimeout(noteBreaks.t);noteBreaks.t=setTimeout(noteBreaks,0);}).observe(document.body,{childList:true,subtree:true,characterData:true});
-function renderActive(){
+function renderActive(){if(TAB==="save"&&typeof GD!=="undefined"&&GD.on&&Date.now()-(GD.t||0)>20000){GD.t=Date.now();gdRefresh();}
   if(TAB==="flow")renderFlow();else if(TAB==="hyd")renderHyd();else if(TAB==="rain")renderRain();
   else if(TAB==="prof")renderProfile();else if(TAB==="sec")renderSections();else if(TAB==="basin")renderBasin();else if(TAB==="rep")renderReport();else if(TAB==="mh")renderMh();else if(TAB==="plan")renderPlan();else if((TAB==="inflow"||TAB==="area")&&typeof renderInfBs==="function"){const rr=()=>{renderInfBs();renderAreaBs();};rr();if(typeof BSN!=="undefined"&&BSN&&!BSN.res)bsEnsure().then(()=>{if(DXF&&!BSN.res){try{BSN.res=bsAnalyze(DXF.ents,{mode:$("bsMode").value,reach:Math.max(10,+$("bsReach").value||100),defC:+$("bsDefC").value});}catch(e){}}rr();});}
   noteBreaks();
