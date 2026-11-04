@@ -1,0 +1,10 @@
+stormwater-tool
+
+src/hwpxtpl.js 의 HWPX 빈 문서 틀(header.xml, section 머리, content.hpf,
+container.xml, container.rdf, manifest.xml, settings.xml, version.xml)은
+python-hwpx 의 Skeleton.hwpx 에서 가져왔습니다.
+
+  python-hwpx — https://github.com/airmang/python-hwpx
+  Copyright 2025-2026 airmang (Dr. Wily)
+  Licensed under the Apache License, Version 2.0
+  https://www.apache.org/licenses/LICENSE-2.0
