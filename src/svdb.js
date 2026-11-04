@@ -1,7 +1,7 @@
 /* 작업 저장: 구글 드라이브 (계정 저장소는 2026-11-05 뺌 — 드라이브로 대신) */
 const svDate=t=>{try{return new Date(t).toLocaleString("ko-KR",{year:"2-digit",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"});}catch(e){return "";}};
 /* ---------- 구글 드라이브 저장: 사용자의 Google Drive 커넥터로 "내 드라이브 › - GitHub 작업 - › 우수 수리계산" 폴더에 .storm.json ---------- */
-const GD={server:"Google Drive",parent:"- GitHub 작업 -",folder:"우수 수리계산",ctx:null,list:null,on:false,busy:false};
+var GD={server:"Google Drive",parent:"- GitHub 작업 -",folder:"우수 수리계산",ctx:null,list:null,on:false,busy:false};
 const gdTO=(p,ms,what)=>Promise.race([p,new Promise((_,rej)=>setTimeout(()=>rej({code:"timeout",message:`${what}이(가) ${Math.round(ms/1000)}초 동안 응답이 없습니다. 허용 창이 화면 다른 곳에 떠 있는지 확인하거나, 브라우저의 claude.ai에서 도구를 열어 주세요.`}),ms))]);
 async function gdCall(tool,input){gdStep(`구글 드라이브 요청 중… (${tool})`);const mcp=window.claude&&window.claude.use?await gdTO(window.claude.use("mcp"),15000,"드라이브 연결"):null;if(!mcp)throw {code:"not_granted",message:"이 화면에서는 구글 드라이브를 쓸 수 없습니다"};
   const r=await gdTO(mcp.callTool(GD.server,tool,input,{cache:false}),45000,"구글 드라이브");return {payload:r.payload,result:r};}
