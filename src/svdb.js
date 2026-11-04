@@ -79,7 +79,7 @@ function gdRender(msg){const box=$("gdList");
   box.innerHTML=GD.list.map(d=>`<div class="sv-row" data-gid="${XE(d.id)}"><div class="sv-meta"><b>${XE(d.name)}</b><small>${XE(svDate(d.ts))} · ${gdKb(d.size)}${d.url?` · <a href="${XE(d.url)}" target="_blank" rel="noopener">드라이브에서 보기</a>`:""}</small></div>
     <div class="sv-btns"><button type="button" class="btn small" data-gact="load">불러오기</button><button type="button" class="btn small" data-gact="over">덮어쓰기</button><button type="button" class="btn small" data-gact="del">삭제</button></div></div>`).join("");}
 async function gdRefresh(){if(GD.busy)return;GD.busy=true;gdRender("구글 드라이브에서 목록을 받는 중…");
-  try{await gdLoadList();GD.on=true;gdRender();}catch(e){GD.list=null;gdRender("지금은 구글 드라이브를 쓸 수 없습니다: "+gdErr(e));}finally{GD.busy=false;}}
+  try{await gdLoadList();GD.on=true;gdRender();}catch(e){GD.list=null;gdRender("지금은 구글 드라이브를 쓸 수 없습니다: "+gdErr(e)+(e&&e.code?` [${e.code}]`:""));}finally{GD.busy=false;}}
 async function gdPut(name,oldId){const folder=await gdFolder(),data=JSON.stringify(ST),title=`${name.replace(/[\\/]/g,"_")}.storm.json`;
   const base={title,parentId:folder,contentMimeType:"application/json",disableConversionToGoogleType:true},bytes=new TextEncoder().encode(data).length;let input;
   if(bytes<700000)input={...base,textContent:data};
@@ -95,7 +95,7 @@ $("gdSave").addEventListener("click",async()=>{const b=$("gdSave");if(b.disabled
   const name=$("gdName").value.trim()||`${ST.proj.name||"우수 수리계산"} (${svDate(Date.now()).replace(/[:]/g,".")})`,same=(GD.list||[]).find(d=>d.name===name);
   b.disabled=true;toast("구글 드라이브에 저장하는 중…");
   try{await gdPut(name,same&&same.id);$("gdName").value="";toast(same?`"${name}"을 새 값으로 덮어썼습니다 (구글 드라이브).`:`"${name}"으로 구글 드라이브에 저장했습니다.`);await gdLoadList();GD.on=true;gdRender();}
-  catch(e){toast("구글 드라이브에 저장하지 못했습니다: "+gdErr(e));}finally{b.disabled=false;}});
+  catch(e){const m="구글 드라이브에 저장하지 못했습니다: "+gdErr(e)+(e&&e.code?` [${e.code}]`:"");toast(m);gdRender(m);try{console.warn("gdrive",e);}catch(_){}}finally{b.disabled=false;}});
 $("gdName").addEventListener("keydown",ev=>{if(ev.key==="Enter"){ev.preventDefault();$("gdSave").click();}});
 $("gdList").addEventListener("click",async ev=>{const b=ev.target.closest("[data-gact]");if(!b)return;
   const id=b.closest(".sv-row").dataset.gid,d=(GD.list||[]).find(x=>x.id===id);if(!d)return;const act=b.dataset.gact;
