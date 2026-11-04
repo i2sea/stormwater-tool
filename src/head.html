@@ -29,9 +29,10 @@ body{background:var(--bg);color:var(--ink);font-family:var(--f-ui);font-size:14p
 .wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px 32px;max-width:1560px;margin:0 auto}
 header.top{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;margin-bottom:14px}
 header.top h1{font-size:22px;font-weight:700;margin:0;letter-spacing:-.01em;text-wrap:balance}
-header.top p{margin:2px 0 0;color:var(--muted);font-size:13px;max-width:70ch}
+header.top p{margin:2px 0 0;color:var(--muted);font-size:13px;max-width:56ch}
 .dl{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.impwrap{margin-left:auto;padding-left:16px;border-left:1px solid var(--line);display:flex;gap:8px;align-items:center}
+.acts{margin-left:auto;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:flex-end}
+.impwrap{padding-left:12px;border-left:1px solid var(--line);display:flex;gap:8px;align-items:center}
 button{font:inherit;cursor:pointer}
 .btn{border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:7px 12px;border-radius:var(--r);font-weight:500;font-size:13px;display:inline-flex;align-items:center;gap:6px}
 .btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
@@ -198,6 +199,7 @@ h3{font-size:14px;margin:18px 0 8px}h3:first-child{margin-top:0}
     <h1>우수 수리계산서</h1>
     <p>유역·관로 제원을 넣으면 강우강도, 유입시간, 합리식 계획우수량, Manning 관로 검토와 종단면도·단면도, 수리계산서가 함께 바뀝니다. 계산은 KDS 61(하수도설계기준 2025)과 도로 배수시설 설계 및 관리지침(2025)을 따릅니다.</p>
   </div>
+  <div class="acts">
   <div class="dl">
     <button class="btn savebtn" id="btnSave" type="button" aria-pressed="false" title="구글 드라이브·계정 저장소에 작업 저장, 불러오기">저장 · 불러오기</button>
     <button class="btn" id="btnDxf" type="button">CAD 도면 받기 (.zip)</button>
@@ -207,6 +209,7 @@ h3{font-size:14px;margin:18px 0 8px}h3:first-child{margin-top:0}
     <span class="note" id="dlNote"></span>
   </div>
   <div class="impwrap"><button class="btn" id="btnTpl" type="button" title="관로 입력·유역면적 입력만 있는 빈 엑셀 양식">엑셀 기본양식</button> <label class="btn primary" for="impXlsx">엑셀 양식에서 불러오기</label><input id="impXlsx" type="file" accept=".xlsx,.xlsm" hidden></div>
+  </div>
 </header>
 
 <section class="imppanel" id="impPanel" hidden></section>
