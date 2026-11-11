@@ -12,6 +12,7 @@
 |---|---|
 | `dist/우수수리계산서.html` | 아티팩트에 올리는 파일 |
 | `dist/우수수리계산서_단독.html` | 내려받아 크롬에서 바로 여는 파일 (입력은 그 브라우저에 저장) |
+| `index.html` | GitHub Pages 첫 화면 — `dist/우수수리계산서_단독.html`로 바로 넘어감 |
 
 엑셀 읽기·쓰기(SheetJS)와 워드·한글 내보내기(JSZip)는 처음 열 때 cdnjs에서 받아오므로 인터넷이 필요합니다. 계산·도면·유역도는 오프라인에서도 됩니다.
 
@@ -51,3 +52,6 @@
 ## 출처
 
 - 한글(.hwpx) 빈 문서 틀(`src/hwpxtpl.js`)은 [python-hwpx](https://github.com/airmang/python-hwpx)의 Skeleton.hwpx에서 가져왔습니다(Apache License 2.0). 자세한 내용은 [`NOTICE`](NOTICE).
+
+## 공개 주소
+https://i2sea.github.io/stormwater-tool/ (GitHub Pages, main / root). 구글 드라이브 저장·계정 저장은 claude.ai 판에서만 됩니다. 공개 주소에서는 파일 내보내기·가져오기(.json)를 쓰세요.
